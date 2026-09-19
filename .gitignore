@@ -1,4 +1,3 @@
 /build/
-*.retry
 *.md
 !README.md
