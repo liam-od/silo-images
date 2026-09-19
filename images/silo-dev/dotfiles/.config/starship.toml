@@ -1,0 +1,23 @@
+format = """
+$username\
+$hostname\
+$directory\
+$python\
+$git_branch\
+$character
+"""
+
+add_newline = false
+
+[directory]
+read_only = " 󰌾"
+truncation_length = 3
+truncate_to_repo = false
+
+[git_branch]
+symbol = " "
+format = "[$symbol$branch]($style) "
+style = "bright-black"
+
+[python]
+format = '[(\($virtualenv\) )]($style)'

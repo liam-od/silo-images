@@ -1,0 +1,11 @@
+#!/bin/sh
+
+instance_name=silo-image-builder-v1
+
+ansible-galaxy collection install -r requirements.yml || exit 1
+
+ansible-playbook \
+    -i "${instance_name}," \
+    -c community.general.incus \
+    "$@" \
+    playbook.yml

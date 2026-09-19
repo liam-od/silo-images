@@ -1,0 +1,26 @@
+---
+- name: Download Mise installer
+  ansible.builtin.get_url:
+    url: https://mise.run
+    dest: /tmp/install-mise
+    mode: "0755"
+
+- name: Install Mise for agent
+  become: true
+  become_user: "{{ agent_user }}"
+  environment:
+    HOME: "{{ agent_home }}"
+  ansible.builtin.command:
+    cmd: /bin/sh /tmp/install-mise
+    creates: "{{ agent_home }}/.local/bin/mise"
+
+- name: Install Mise tools
+  become: true
+  become_user: "{{ agent_user }}"
+  environment:
+    HOME: "{{ agent_home }}"
+    USER: "{{ agent_user }}"
+    MISE_JOBS: "4"
+  ansible.builtin.command:
+    cmd: "{{ agent_home }}/.local/bin/mise install --yes"
+  changed_when: false

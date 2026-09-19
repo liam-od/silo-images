@@ -2,19 +2,17 @@
 
 Minimal Ubuntu development image for Silo.
 
-## Baseline packages
+## Creating the image
 
-[`packages.txt`](packages.txt) contains only the initial baseline:
+ ```bash
+   incus init images:<pinned-fingerprint> <name> \
+     --vm \
+     -c limits.cpu=4 \
+     -c limits.memory=4GiB \
+     -d root,size=20GiB
+ ```
 
-- OpenSSH server
-- CA certificates
-- curl
-- Git
+ I'm using `ubuntu/26.04/cloud` for the resolute cloud image,
+ but check out the [image server](https://images.linuxcontainers.org/).
 
-Development tools are added only after the base image is built.
-
-## Provisioning policy
-
-Ansible provisions the builder through the Incus guest agent using the `community.general.incus` connection plugin. Provisioning does not require SSH or copy personal credentials into the guest.
-
-The image retains Ubuntu's package-provided OpenSSH configuration. Per-instance cloud-init disables SSH password authentication and supplies the instance user and public key.
+Then to run the ansible playbook: `./run`

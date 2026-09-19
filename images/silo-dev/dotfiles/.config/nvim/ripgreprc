@@ -1,0 +1,17 @@
+--hidden
+--max-filesize=1M
+--max-columns=1000
+--glob=!**/.git/**
+--glob=!**/.cache/**
+--glob=!**/.local/share/**
+--glob=!**/.venv/**
+--glob=!**/node_modules/**
+--glob=!**/undodir/**
+--glob=!**/.config/google-chrome/**
+--glob=!**/.config/BraveSoftware/**
+--glob=!**/.npm/**
+--glob=!**/.ansible/**
+--glob=!**/.pi/agent/npm/**
+--glob=!**/.pi/agent/sessions/**
+--glob=!**/.pi/agent/web-search-cache/**
+--glob=!**/snap/**

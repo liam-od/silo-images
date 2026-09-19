@@ -1,0 +1,9 @@
+---
+- name: Copy agent dotfiles
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/dotfiles/"
+    dest: "{{ agent_home }}/"
+    owner: "{{ agent_user }}"
+    group: "{{ agent_user }}"
+    mode: u=rwX,go=rX
+    directory_mode: "0755"

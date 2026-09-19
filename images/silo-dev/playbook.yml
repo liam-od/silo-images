@@ -1,0 +1,18 @@
+---
+- name: Setup Silo development image
+  hosts: all
+  gather_facts: false
+  vars:
+    agent_user: agent
+    agent_home: /home/agent
+    ansible_python_interpreter: /usr/bin/python3
+
+  roles:
+    - role: base
+      tags: base
+
+    - role: dotfiles
+      tags: dotfiles
+
+    - role: mise
+      tags: mise

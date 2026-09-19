@@ -1,0 +1,47 @@
+---
+- name: Remove default Ubuntu user
+  ansible.builtin.user:
+    name: ubuntu
+    state: absent
+    remove: true
+
+- name: Remove initial cloud-init sudo policy
+  ansible.builtin.file:
+    path: /etc/sudoers.d/90-cloud-init-users
+    state: absent
+
+- name: Install essential packages
+  ansible.builtin.apt:
+    name:
+      - openssh-server
+      - ca-certificates
+      - curl
+      - git
+      - build-essential
+      - libfuse2t64
+      - unzip
+      - zsh
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
+    update_cache: true
+    dpkg_options: force-confnew
+
+- name: Create agent user
+  ansible.builtin.user:
+    name: "{{ agent_user }}"
+    home: "{{ agent_home }}"
+    create_home: true
+    shell: /usr/bin/zsh
+    groups:
+      - sudo
+    append: true
+    password_lock: true
+
+- name: Allow agent passwordless sudo
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/{{ agent_user }}"
+    content: "{{ agent_user }} ALL=(ALL:ALL) NOPASSWD:ALL\n"
+    owner: root
+    group: root
+    mode: "0440"
+    validate: "/usr/sbin/visudo -cf %s"
