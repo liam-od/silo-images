@@ -1,0 +1,4 @@
+openssh-server
+ca-certificates
+curl
+git
